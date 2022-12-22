@@ -6,17 +6,63 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "theme": "chakra-cli tokens path/to/theme.ts",
+    "theme:watch": "chakra-cli tokens path/to/theme.ts --watch"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.13",
+    "@chakra-ui/react": "^2.4.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/baloo-thambi-2": "^4.5.11",
+    "@next/font": "^13.0.5",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "framer-motion": "^7.6.15",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.7.5",
     "next": "13.0.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "^4.7.1",
     "typescript": "4.9.3"
+  },
+  "devDependencies": {
+    "@chakra-ui/cli": "^2.1.8",
+    "babel-plugin-styled-components": "^2.0.7"
+  },
+  "babel": {
+    "env": {
+      "development": {
+        "presets": [
+          "next/babel"
+        ],
+        "plugins": [
+          "babel-plugin-styled-components"
+        ]
+      },
+      "production": {
+        "presets": [
+          "next/babel"
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": false
+            }
+          ]
+        ]
+      }
+    }
   }
 }

@@ -39,13 +39,13 @@ export default function Login(props: LoginProps) {
                     <Heading size="2xl">Log in.</Heading>
                     <Text variant="underText">Enter your details to get signed in</Text>
                     <FormControl style={{width: "75%", marginLeft: 'auto', marginRight: 'auto'}} isInvalid={isEmailError}>
-                        <Input value={email} onBlur={e => {if(e.target.value.length === 0 || !emailRe.test(e.target.value)) setIsEmailError(true); else setIsEmailError(false);}} onChange={event => setEmail(event.currentTarget.value)} placeholder="Email"/>
+                        <Input value={email} onBlur={e => {if(!emailRe.test(e.target.value)) setIsEmailError(true); else setIsEmailError(false);}} onChange={event => setEmail(event.currentTarget.value)} placeholder="Email"/>
                         {isEmailError ? <FormErrorMessage style={{margin: "0px", padding: "0px"}}></FormErrorMessage>: null}
                     </FormControl>
                     <FormControl isInvalid={isPasswordError}>
                         <InputGroup style={{width: "75%", marginLeft: 'auto', marginRight: 'auto'}}>
                             <Input
-                                onBlur={e => {if(e.target.value.length === 0) setIsPasswordError(true); else setIsPasswordError(false);}}
+                                onBlur={e => { setIsPasswordError(false);}}
                                 value={password}
                                 onChange={event => setPassword(event.currentTarget.value)}
                                 type={show ? 'text' : 'password'}

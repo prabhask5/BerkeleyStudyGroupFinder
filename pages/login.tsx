@@ -4,6 +4,7 @@ import LoginView from '../components/LoginView';
 import SignUpView from '../components/SignUpView';
 import {useState} from 'react';
 import { useRouter } from "next/router";
+import axios from 'axios';
 
 export default function Login() {
     const [viewState, setViewState] = useState(0);
@@ -20,13 +21,50 @@ export default function Login() {
               })
         }
         else {
-            console.log("Email: " + email + "  Password: " + password);
-            router.push("/explore");
+            axios.post("http://localhost:4000/auth/login", {email: email, password: password})
+                .then(res => {
+                    if(res.status === 201){
+                        if(res.data.message === "User Not Exist"){
+                            toast({
+                                title: 'User Not Found',
+                                description: "A user with this email could not be found. Please try again",
+                                status: 'error',
+                                duration: 2000,
+                                isClosable: true,
+                            })
+                        } else if(res.data.message === "Incorrect Password"){
+                            toast({
+                                title: 'Incorrect Password',
+                                description: "This email password combination is incorrect. Please try again",
+                                status: 'error',
+                                duration: 2000,
+                                isClosable: true,
+                            })
+                        }
+                    } else if(res.status === 202){
+                        toast({
+                            title: 'Unexpected error',
+                            description: "Please try again",
+                            status: 'error',
+                            duration: 2000,
+                            isClosable: true,
+                        })
+                    } else if(res.status === 200){
+                        toast({
+                            title: 'Login Successful',
+                            status: 'success',
+                            duration: 2000,
+                            isClosable: true,
+                        })
+                        localStorage.setItem("authToken", res.data.token);
+                        router.push("/explore");
+                    }
+                });
         }
 
     }
-    const handleSignUp = (email: string, password: string, isEmailError: boolean, isPasswordError: boolean, isConfirmPasswordError: boolean, anyError: boolean) => {
-        if(isEmailError || isPasswordError || isConfirmPasswordError || anyError){
+    const handleSignUp = (email: string, password: string, isEmailError: boolean, isPasswordMatchError: boolean, isConfirmPasswordMatchError: boolean, isPasswordFormError: boolean, isConfirmPasswordFormError: boolean, anyError: boolean) => {
+        if(isEmailError || isPasswordFormError || isConfirmPasswordFormError || anyError){
             toast({
                 title: 'Error with Inputted Information',
                 description: "Please enter your invalid information again",
@@ -35,9 +73,45 @@ export default function Login() {
                 isClosable: true,
               })
         }
+        else if(isPasswordMatchError || isConfirmPasswordMatchError){
+            toast({
+                title: 'Error with Inputted Information',
+                description: "Password and confirm password does not match",
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+              })
+        }
         else {
-            console.log("Signup! Email: " + email + "  Password: " + password);
-            router.push("/startprofile");
+            axios.post("http://localhost:4000/auth/signup", {email: email, password: password})
+                .then(res => {
+                    if(res.status === 201){
+                        toast({
+                            title: 'User with This Email Already Exists',
+                            description: "Please use another email address",
+                            status: 'error',
+                            duration: 2000,
+                            isClosable: true,
+                        })
+                    } else if(res.status === 202){
+                        toast({
+                            title: 'Unexpected error',
+                            description: "Please try again",
+                            status: 'error',
+                            duration: 2000,
+                            isClosable: true,
+                        })
+                    } else if(res.status === 200){
+                        toast({
+                            title: 'Sign Up Successful',
+                            status: 'success',
+                            duration: 2000,
+                            isClosable: true,
+                        })
+                        localStorage.setItem("authToken", res.data.token);
+                        router.push("/startprofile");
+                    }
+                });
         }
     }
     if(viewState === 0){

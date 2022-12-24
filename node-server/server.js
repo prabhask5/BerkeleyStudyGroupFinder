@@ -1,10 +1,30 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const auth = require("./routes/auth");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const InitiateMongoServer = require("./config/db.config");
+const PORT = process.env.PORT || 4000;
+
+InitiateMongoServer();
 
 const app = express();
-const PORT = 4000;
+
 app.use(bodyParser.json());
+app.use(cors());
+app.use(cookieParser());
+
+app.get("/", (req, res) => {
+  res.json({ message: "API Working" });
+});
+
+/**
+ * Router Middleware
+ * Router - /user/*
+ * Method - *
+ */
+app.use("/auth", auth);
 
 app.listen(PORT, (req, res) => {
-    console.log(`Server started at port ${PORT}`);
+  console.log(`Server Started at PORT ${PORT}`);
 });

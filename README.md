@@ -53,4 +53,4 @@ After gaining access to the cloudinary application image folder through making a
 - Like button on profile summary component incorrectly staying full black instead of reverting to outline after hover off
 - Avatar images flickering on initial page load
 - Main logo font flickering on initial page load
-- Make website look good in general (polish), and on big screens, [http://whatismyscreenresolution.net/multi-screen-test?site-url=http://localhost:3000/login&w=1920&h=1200](like what is seen here)
+- Make website look good in general (polish), and on big screens, [like what is seen here](http://whatismyscreenresolution.net/multi-screen-test?site-url=http://localhost:3000/login&w=1920&h=1200)

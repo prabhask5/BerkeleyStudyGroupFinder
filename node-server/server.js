@@ -11,7 +11,7 @@ const InitiateTestData = require("./config/test.config");
 const PORT = process.env.PORT || 4000;
 
 InitiateMongoServer();
-InitiateTestData();
+//InitiateTestData();
 
 const app = express();
 

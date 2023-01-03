@@ -47,6 +47,7 @@ After gaining access to the cloudinary application image folder through making a
 - Add additional profile information, like preferred study times, preferred study locations
 - Pseudo dropdown (can type to filter but can only select from dropdown options) input for major, grad year, pronouns, courseAbrName, courseLongName
 - Link error checking for fbURL, igURL, scURL
+- Optimize data loading for explore page, make infinite feed using react-infinite-scroll-component
 
 ## Ongoing Bugs to Fix
 

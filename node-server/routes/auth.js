@@ -3,7 +3,6 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
-const token = require("../middleware/tokenCheck");
 
 const User = require("../models/User");
 
@@ -31,6 +30,7 @@ router.post(
         email: email,
         password: password,
         newUser: true,
+        completedStartProfile: false,
       });
 
       const salt = await bcrypt.genSalt(10);
@@ -118,14 +118,5 @@ router.post(
     }
   }
 );
-
-router.get("/me", token, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id);
-    res.json(user);
-  } catch (e) {
-    res.send({ message: "Error in Fetching user" });
-  }
-});
 
 module.exports = router;

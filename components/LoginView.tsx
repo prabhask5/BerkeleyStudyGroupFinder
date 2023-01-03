@@ -14,14 +14,14 @@ export default function Login(props: LoginProps) {
     const emailRe = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
     return (
         <div>
-            <Heading variant="logo" size="lg" style={{marginBottom: "50px"}}>matchr</Heading>
+            <Heading variant="logo" size="lg" style={{marginBottom: "50px"}}>BerkeleyFind</Heading>
             <form onSubmit={ e => {
                 e.preventDefault();
                 let anyError = false;
                 if(isEmailError){
                     setEmail("");
                 }
-                if(email.length === 0){
+                if(!emailRe.test(email)){
                     setIsEmailError(true);
                     anyError = true;
                 }

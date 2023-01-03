@@ -20,14 +20,14 @@ export default function SignUp(props: SignUpProps) {
     const emailRe = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
     return (
         <div>
-            <Heading variant="logo" size="lg" style={{marginBottom: "50px"}}>matchr</Heading>
+            <Heading variant="logo" size="lg" style={{marginBottom: "50px"}}>BerkeleyFind</Heading>
             <form onSubmit={ e => {
                 e.preventDefault();
                 let anyError = false;
                 if(isEmailError){
                     setEmail("");
                 }
-                if(email.length === 0){
+                if(!emailRe.test(email)){
                     setIsEmailError(true);
                     anyError = true;
                 }
@@ -64,11 +64,13 @@ export default function SignUp(props: SignUpProps) {
                                     if(e.target.value != confirmPassword && confirmPassword.length > 0){
                                         setIsPasswordMatchError(true);
                                         setIsConfirmPasswordMatchError(true);
-                                } else if(e.target.value === confirmPassword){
-                                    setIsPasswordMatchError(false);
-                                    setIsConfirmPasswordMatchError(false);
-                                }}}
-                                onChange={event => setPassword(event.currentTarget.value)}
+                                    } else if(e.target.value === confirmPassword){
+                                        setIsPasswordMatchError(false);
+                                        setIsConfirmPasswordMatchError(false);
+                                    }}}
+                                onChange={event => {setPassword(event.currentTarget.value)
+                                                    setIsPasswordFormError(false);
+                                                    }}
                                 type={show ? 'text' : 'password'}
                                 placeholder='Password'
                             />
@@ -88,11 +90,13 @@ export default function SignUp(props: SignUpProps) {
                                     if(e.target.value != password && password.length > 0){
                                         setIsPasswordMatchError(true);
                                         setIsConfirmPasswordMatchError(true);
-                                } else if(e.target.value === password){
-                                    setIsPasswordMatchError(false);
-                                    setIsConfirmPasswordMatchError(false);
-                                }}}
-                                onChange={event => setConfirmPassword(event.currentTarget.value)}
+                                    } else if(e.target.value === password){
+                                        setIsPasswordMatchError(false);
+                                        setIsConfirmPasswordMatchError(false);
+                                    }}}
+                                onChange={event => {setConfirmPassword(event.currentTarget.value);
+                                                    setIsConfirmPasswordFormError(false);
+                                                    }}
                                 type={confirmShow ? 'text' : 'password'}
                                 placeholder='Confirm Password'
                             />

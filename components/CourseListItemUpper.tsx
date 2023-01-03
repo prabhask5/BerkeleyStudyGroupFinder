@@ -12,7 +12,7 @@ export default function CourseListItemUpper(props: CourseListItemUpperProps) {
     const { onOpen, onClose, isOpen } = useDisclosure();
     useEffect(() => {
         onClose();
-    }, [onClose, props.allClosed]);
+    }, [props.allClosed]);
     return (
         <div>
             <Popover trigger="hover" openDelay={400} closeDelay={0} isOpen={isOpen} onOpen={onOpen} onClose={onClose}>

@@ -1,15 +1,18 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = function (req, res, next) {
-  const token = req.header("token");
-  if (!token) return res.status(401).json({ message: "Auth Error" });
+  const bearerToken = req.header("Authentication").split(" ")[1];
+  const bearerSign = req.header("Authorization").split(" ")[1];
+  if (bearerToken == "undefined" || bearerSign == "undefined"){
+    return res.status(203).json({ message: "Token does not exist" });
+  }
 
   try {
-    const decoded = jwt.verify(token, "randomString");
+    const decoded = jwt.verify(bearerToken + "." + bearerSign, "randomString");
     req.user = decoded.user;
     next();
   } catch (e) {
     console.error(e);
-    res.status(500).send({ message: "Invalid Token" });
+    res.status(201).send({ message: "Invalid Token" });
   }
 };

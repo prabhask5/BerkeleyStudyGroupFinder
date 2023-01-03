@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const CourseSchema = require("../models/Courses");
 
 const UserSchema = mongoose.Schema({
   email: {
@@ -9,9 +10,13 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  profileImageURL: {
+  profileImage: {
     type: String,
     required: false,
+  },
+  profileImagePublicURL: {
+    type: String,
+    require: false,
   },
   major: {
     type: String,
@@ -49,7 +54,27 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: false,
   },
+  courseList: {
+    type: [CourseSchema],
+    required: false,
+  },
+  friendsList: {
+    type: [String],
+    required: false,
+  },
+  incomingRequestsList: {
+    type: [String],
+    required: false,
+  },
+  outgoingRequestsList: {
+    type: [String],
+    required: false,
+  },
   newUser: {
+    type: Boolean,
+    required: true,
+  },
+  completedStartProfile: {
     type: Boolean,
     required: true,
   },

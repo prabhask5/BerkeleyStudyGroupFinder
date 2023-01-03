@@ -11,9 +11,6 @@ interface ProfileReadViewProps{
     gradYear: string;
     userBio: string;
     pronouns: string;
-    fbURL: string;
-    igURL: string;
-    scURL: string;
 }
 
 

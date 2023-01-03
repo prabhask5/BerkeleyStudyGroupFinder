@@ -10,7 +10,7 @@ const { definePartsStyle, defineMultiStyleConfig } =
       borderRadius: 'full'
     },
     field: {
-        color: '#8A8A8A',
+        color: '#1c1c1c',
         fontWeight: '510',
         borderRadius: 'full',
     },
